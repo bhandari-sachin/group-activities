@@ -11,7 +11,6 @@ let carArray = [];
 let nextId = 1;
 
 const addOne = (model, color, age) => {
-  // Check if any parameter is empty or undefined
   if (!model || !color || age === undefined) {
     return false;
   }
@@ -25,31 +24,24 @@ const addOne = (model, color, age) => {
   return newCar;
 };
 
-const getAll = () => {
-  return carArray;
-};
-
-// function to find a car by its id
+const getAll = () => carArray;
 
 const findById = (id) => {
   const numericId = Number(id);
-  const car = carArray.find((car) => car.id === numericId);
-  return car || null;
+  return carArray.find((car) => car.id === numericId) || null;
 };
 
-// function to update a car by its id
 const updateOneById = (id, updatedData) => {
   const car = findById(id);
   if (!car) return false;
 
   ["model", "color", "age"].forEach((prop) => {
-    if (updatedData[prop]) car[prop] = updatedData[prop];
+    if (updatedData[prop] !== undefined) car[prop] = updatedData[prop];
   });
 
   return car;
 };
 
-// Delete an element by its id
 const deleteOneById = (id) => {
   const car = findById(id);
   if (!car) return false;
@@ -58,7 +50,7 @@ const deleteOneById = (id) => {
   return carArray.length < initialLength;
 };
 
-// Testing the module
+// Optional test code
 if (require.main === module) {
   console.log("Adding cars:");
   console.log(addOne("Corolla", "Red", 3));
@@ -91,4 +83,5 @@ const Car = {
   updateOneById,
   deleteOneById,
 };
-module.exports = Car;
+
+export default Car;
