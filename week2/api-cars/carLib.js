@@ -100,4 +100,4 @@ Car = {
   deleteOneById,
 };
 
-module.exports = Car;
+export default Car;

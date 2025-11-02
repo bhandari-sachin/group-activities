@@ -57,9 +57,8 @@ const deleteOneById = (id) => {
   return todo; // return deleted todo
 };
 
-// Testing the module
-// Testing the module
-if (require.main === module) {
+// Test the functions
+if (import.meta.url === `file://${process.argv[1]}`) {
   console.log("Initial todo list:", getAll());
   console.log("\nAdding todos:");
   console.log(addOne("Buy groceries", false, "2025-08-30"));
@@ -81,7 +80,7 @@ if (require.main === module) {
   console.log("\nFinal todo list:", getAll());
 }
 
-const ToDos = {
+const Todos = {
   getAll,
   addOne,
   findById,
@@ -89,4 +88,4 @@ const ToDos = {
   deleteOneById,
 };
 
-module.exports = ToDos;
+export default Todos;

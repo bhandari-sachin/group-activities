@@ -51,7 +51,7 @@ const deleteOneById = (id) => {
 };
 
 // Optional test code
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   console.log("Adding cars:");
   console.log(addOne("Corolla", "Red", 3));
   console.log(addOne("Civic", "Blue", 5));
