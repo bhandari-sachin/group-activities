@@ -4,7 +4,7 @@ const express = require("express");
 const carRouter = require("./routes/carRouter");
 
 // const userRouter = require('./routes/userRouter');
-// const blogRouter = require("./routes/blogRouter");
+const blogRouter = require("./routes/blogRouter");
 
 const {
   requestLogger,
@@ -29,7 +29,8 @@ app.get("/", (req, res) => res.send("API Running!"));
 // Use the carRouter for all /cars routes
 app.use("/api/cars", carRouter);
 
-// Use the blogRouter for all /cars routes
+// Use the blogRouter for all /blogs routes
+app.use("/api/blogs", blogRouter);
 
 // Use the userRouter for all /users routes
 
