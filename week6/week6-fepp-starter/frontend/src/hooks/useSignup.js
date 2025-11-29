@@ -23,7 +23,7 @@ export const useSignup = () => {
         return null;
       }
 
-      localStorage.setItem("user", JSON.stringify(json));
+      sessionStorage.setItem("user", JSON.stringify(json));
 
       setIsLoading(false);
       return json;

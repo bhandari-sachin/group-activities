@@ -21,7 +21,7 @@ export const useLogin = () => {
         setError(json.error || "Login failed");
         return null;
       }
-      localStorage.setItem("user", JSON.stringify(json));
+      sessionStorage.setItem("user", JSON.stringify(json));
       setIsLoading(false);
       return json;
     } catch (error) {
