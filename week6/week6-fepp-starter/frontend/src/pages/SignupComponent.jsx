@@ -1,40 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../hooks/useSignup";
 
 const SignupComponent = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
+  const { signup, isLoading, error } = useSignup();
 
   const handleSignup = async () => {
-    try {
-      const response = await fetch("/api/users/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    const user = await signup(email, password);
 
-      if (response.ok) {
-        const user = await response.json();
-        localStorage.setItem("user", JSON.stringify(user));
-        console.log("User signed up successfully!");
-        setIsAuthenticated(true);
-        navigate("/");
-      } else {
-        console.error("Signup failed", response);
-      }
-    } catch (error) {
-      console.error("Error during signup:", error);
+    if (user) {
+      setIsAuthenticated(true);
+      navigate("/");
     }
   };
 
   return (
     <div className="form-container">
       <h2>Signup</h2>
+
       <label>
-        email:
+        Email:
         <input
           type="text"
           value={email}
@@ -42,6 +31,7 @@ const SignupComponent = ({ setIsAuthenticated }) => {
         />
       </label>
       <br />
+
       <label>
         Password:
         <input
@@ -51,7 +41,12 @@ const SignupComponent = ({ setIsAuthenticated }) => {
         />
       </label>
       <br />
-      <button onClick={handleSignup}>Sign Up</button>
+
+      <button onClick={handleSignup} disabled={isLoading}>
+        {isLoading ? "Signing up..." : "Sign Up"}
+      </button>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };
