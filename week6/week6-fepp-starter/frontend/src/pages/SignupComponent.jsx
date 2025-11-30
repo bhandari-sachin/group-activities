@@ -1,26 +1,39 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
+import useField from "../hooks/useField";
 
 const SignupComponent = ({ setIsAuthenticated }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  // Use useField for all inputs
+  const email = useField("text");
+  const password = useField("password");
+  const passwordConfirm = useField("password");
+
+  // Local state for password mismatch error
   const [matchError, setMatchError] = useState(null);
 
-  const navigate = useNavigate();
   const { signup, isLoading, error } = useSignup();
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
-    if (password !== passwordConfirm) {
+    // Check if passwords match
+    if (password.value !== passwordConfirm.value) {
       setMatchError("Passwords do not match");
       return;
     }
     setMatchError(null);
-    const user = await signup(email, password);
+
+    // Call the signup hook
+    const user = await signup(email.value, password.value);
 
     if (user) {
       setIsAuthenticated(true);
+
+      // reset fields after successful signup
+      email.reset();
+      password.reset();
+      passwordConfirm.reset();
+
       navigate("/");
     }
   };
@@ -31,37 +44,26 @@ const SignupComponent = ({ setIsAuthenticated }) => {
 
       <label>
         Email:
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <input {...email} />
       </label>
       <br />
 
       <label>
         Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <input {...password} />
       </label>
       <br />
 
       <label>
         Confirm Password:
-        <input
-          type="password"
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
-        />
+        <input {...passwordConfirm} />
       </label>
       <br />
 
       <button onClick={handleSignup} disabled={isLoading}>
         {isLoading ? "Signing up..." : "Sign Up"}
       </button>
+
       {matchError && <p style={{ color: "red" }}>{matchError}</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>

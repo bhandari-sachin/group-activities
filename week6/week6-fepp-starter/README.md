@@ -36,7 +36,7 @@
 ### `User.create({ ... })` vs `this.create({ ... })`
 
 - `User.create` is explicit, works anywhere
-- `this.create` is used inside static methods; refers dynamically to the model
+- `this.create` is used inside static methods, refers dynamically to the model
 - Use `this` in statics for portability
 
 ### Validator import location
