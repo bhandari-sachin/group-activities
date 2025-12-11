@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "title": "Frontend Developer",
+    "company": "TechCorp",
+    "location": "Remote",
+    "type": "Full-time",
+    "salary": "$60,000 - $80,000",
+    "postedDate": "2025-12-01",
+    "description": "Build modern web applications using React, Tailwind, and Vite."
+  },
+  {
+    "id": 2,
+    "title": "Backend Developer",
+    "company": "Innovatech",
+    "location": "New York, NY",
+    "type": "Full-time",
+    "salary": "$70,000 - $90,000",
+    "postedDate": "2025-12-03",
+    "description": "Design REST APIs and maintain scalable backend systems with Node.js and Express."
+  },
+  {
+    "id": 3,
+    "title": "UI/UX Designer",
+    "company": "Creative Minds",
+    "location": "San Francisco, CA",
+    "type": "Contract",
+    "salary": "$40/hr - $60/hr",
+    "postedDate": "2025-12-05",
+    "description": "Design user interfaces and experiences for web and mobile applications.",
+    "logo": "/assets/design.svg"
+  },
+  {
+    "id": 4,
+    "title": "Full Stack Developer",
+    "company": "NextGen Solutions",
+    "location": "Remote",
+    "type": "Part-time",
+    "salary": "$50,000 - $70,000",
+    "postedDate": "2025-12-06",
+    "description": "Work on both frontend and backend projects using React and Node.js."
+  },
+  {
+    "id": 5,
+    "title": "DevOps Engineer",
+    "company": "CloudWorks",
+    "location": "Austin, TX",
+    "type": "Full-time",
+    "salary": "$80,000 - $100,000",
+    "postedDate": "2025-12-07",
+    "description": "Maintain CI/CD pipelines, cloud infrastructure, and monitor system performance."
+  }
+]
