@@ -1,21 +1,23 @@
 import React from "react";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import JobListings from "./components/JobListings";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
+import HomePage from "./pages/HomePage.jsx";
+import MainLayout from "./layouts/MainLayout.jsx";
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <Hero
-        title="Welcome to Tech Jobs Portal"
-        subtitle="Find your dream job today!"
-      />
-      <Features />
-      <JobListings />
-    </div>
-  );
-}
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<MainLayout />}>
+      <Route index element={<HomePage />} />
+    </Route>
+  )
+);
+
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;
