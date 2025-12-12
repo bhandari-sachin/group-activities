@@ -47,12 +47,19 @@ const useJobForm = () => {
     });
   };
 
+  // <-- This allows EditJobPage to populate the form
+  const setJobForm = ({ job, company }) => {
+    setJob(job);
+    setCompany(company);
+  };
+
   return {
     job,
     company,
     handleChange,
     handleCompanyChange,
     resetForm,
+    setJobForm,
   };
 };
 
