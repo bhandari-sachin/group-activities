@@ -1,5 +1,6 @@
 import FeatureCard from "./FeatureCard";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Features = () => {
   return (
@@ -13,12 +14,12 @@ const Features = () => {
               around the world. Apply easily and track your applications all in
               one place.
             </p>
-            <a
-              href="/jobs.html"
+            <Link
+              to="/jobs"
               className="inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700"
             >
               Browse Jobs
-            </a>
+            </Link>
           </FeatureCard>
           <FeatureCard bgColor="bg-indigo-100">
             <h2 className="text-2xl font-bold">For Employers</h2>
@@ -26,12 +27,12 @@ const Features = () => {
               Post job openings, manage applications, and find the perfect
               candidates for your tech roles.
             </p>
-            <a
-              href="/add-job.html"
+            <Link
+              to="/add-job"
               className="inline-block bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600"
             >
               Post a Job
-            </a>
+            </Link>
           </FeatureCard>
         </div>
       </div>

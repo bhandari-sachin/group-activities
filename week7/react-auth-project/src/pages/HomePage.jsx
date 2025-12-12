@@ -1,7 +1,7 @@
+import Hero from "../components/Hero";
 import Features from "../components/Features";
 import JobListings from "../components/JobListings";
 import ViewAllJobs from "../components/ViewAllJobs";
-import Hero from "../components/Hero";
 
 import React from "react";
 
@@ -10,7 +10,7 @@ const HomePage = () => {
     <div>
       <Hero />
       <Features />
-      <JobListings />
+      <JobListings isHome={true} />
       <ViewAllJobs />
     </div>
   );
