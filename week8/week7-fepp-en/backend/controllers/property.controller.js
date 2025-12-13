@@ -27,7 +27,19 @@ export const createProperty = async (req, res) => {
 
 // GET /properties/:propertyId
 export const getPropertyById = async (req, res) => {
-  res.send("getPropertyById");
+  const { propertyId } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(propertyId)) {
+    return res.status(400).json({ message: "Invalid property ID" });
+  }
+  try {
+    const property = await Property.findById(propertyId);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // PUT /properties/:propertyId
@@ -37,7 +49,19 @@ export const updateProperty = async (req, res) => {
 
 // DELETE /properties/:propertyId
 export const deleteProperty = async (req, res) => {
-  res.send("deleteProperty");
+  const { propertyId } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(propertyId)) {
+    return res.status(400).json({ message: "Invalid property ID" });
+  }
+  try {
+    const property = await Property.findOneAndDelete({ _id: propertyId });
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export default {
