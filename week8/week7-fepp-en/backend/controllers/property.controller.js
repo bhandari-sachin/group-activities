@@ -44,7 +44,23 @@ export const getPropertyById = async (req, res) => {
 
 // PUT /properties/:propertyId
 export const updateProperty = async (req, res) => {
-  res.send("updateProperty");
+  const { propertyId } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(propertyId)) {
+    return res.status(400).json({ message: "Invalid property ID" });
+  }
+  try {
+    const property = await Property.findOneAndUpdate(
+      { _id: propertyId },
+      req.body,
+      { new: true }
+    );
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // DELETE /properties/:propertyId
