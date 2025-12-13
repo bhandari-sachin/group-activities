@@ -59,3 +59,56 @@ describe("GET /api/properties", () => {
     expect(res.body.length).toBe(1);
   });
 });
+
+describe("GET /api/properties/:propertyId", () => {
+  it("should return a property by ID", async () => {
+    const postRes = await request(app)
+      .post("/api/properties")
+      .send(validProperty);
+    const propertyId = postRes.body._id;
+
+    const getRes = await request(app).get(`/api/properties/${propertyId}`);
+    expect(getRes.statusCode).toBe(200);
+    expect(getRes.body._id).toBe(propertyId);
+  });
+
+  it("should return 404 for non-existing property", async () => {
+    const res = await request(app).get(
+      `/api/properties/612e3c4f1c4ae5b1c8f0a999`
+    );
+    expect(res.statusCode).toBe(404);
+  });
+});
+
+describe("PUT /api/properties/:propertyId", () => {
+  it("should update a property by ID", async () => {
+    const postRes = await request(app)
+      .post("/api/properties")
+      .send(validProperty);
+    const propertyId = postRes.body._id;
+
+    const updatedData = { price: 1300 };
+    const putRes = await request(app)
+      .put(`/api/properties/${propertyId}`)
+      .send(updatedData);
+    expect(putRes.statusCode).toBe(200);
+    expect(putRes.body.price).toBe(updatedData.price);
+  });
+});
+
+describe("DELETE /api/properties/:propertyId", () => {
+  it("should delete a property by ID", async () => {
+    const postRes = await request(app)
+      .post("/api/properties")
+      .send(validProperty);
+    const propertyId = postRes.body._id;
+
+    const deleteRes = await request(app).delete(
+      `/api/properties/${propertyId}`
+    );
+    expect(deleteRes.statusCode).toBe(200);
+
+    const getRes = await request(app).get(`/api/properties/${propertyId}`);
+    expect(getRes.statusCode).toBe(404);
+  });
+});
