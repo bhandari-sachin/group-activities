@@ -19,8 +19,4 @@ const requestLogger = (req, res, next) => {
   next();
 };
 
-module.exports = {
-  requestLogger,
-  unknownEndpoint,
-  errorHandler,
-};
+export { unknownEndpoint, errorHandler, requestLogger };
