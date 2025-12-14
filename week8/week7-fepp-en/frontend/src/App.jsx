@@ -1,27 +1,47 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
 
-// pages & components
-import Home from "./pages/HomePage";
-import AddJobPage from "./pages/AddJobPage";
-import Navbar from "./components/Navbar";
-import NotFoundPage from "./pages/NotFoundPage"
+import MainLayout from "./layouts/MainLayout.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import PropertiesPage from "./pages/PropertiesPage.jsx";
+import PropertyPage, { propertyLoader } from "./pages/PropertyPage.jsx";
+import AddPropertyPage from "./pages/AddPropertyPage.jsx";
 
 const App = () => {
+  // Delete property
+  const deleteProperty = async (propertyId) => {
+    const response = await fetch(`/api/properties/${propertyId}`, {
+      method: "DELETE",
+    });
 
-    return (
-      <div className="App">
-        <BrowserRouter>
-          <Navbar />
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/add-job" element={<AddJobPage />} />
-              <Route path='*' element={<NotFoundPage />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
-      </div>
-    );
-  }
-  
-  export default App;
+    if (!response.ok) {
+      throw new Error("Failed to delete property");
+    }
+  };
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+
+        <Route path="properties" element={<PropertiesPage />} />
+
+        <Route
+          path="properties/:id"
+          element={<PropertyPage deleteProperty={deleteProperty} />}
+          loader={propertyLoader}
+        />
+
+        <Route path="add-property" element={<AddPropertyPage />} />
+      </Route>
+    )
+  );
+
+  return <RouterProvider router={router} />;
+};
+
+export default App;
